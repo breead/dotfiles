@@ -1,0 +1,51 @@
+# asmd() {
+#     gcc -g "$1" -o a.out && lldb ./a.out
+# }
+
+## general zsh stuff
+PS1="%2~ %# "
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+autoload -Uz compinit && compinit
+
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+alias ls='ls -G'
+alias ll='ls -l'
+alias la='ls -a'
+
+export MANPAGER="nvim -c 'Man!' -"
+
+# bind opt-left and opt-right to jump words in ZLE (?)
+# doesn't work very well
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+
+clipboard() {
+  if [[ $# -ne 1 ]]; then
+    echo "Usage: clipboard <image.jpg>"
+    return 1
+  fi
+
+  local img_path="$1"
+
+  # Convert to absolute path
+  if [[ "$img_path" != /* ]]; then
+    img_path="$PWD/$img_path"
+  fi
+
+  if [[ ! -f "$img_path" ]]; then
+    echo "File not found: $img_path"
+    return 1
+  fi
+
+  osascript -e "set the clipboard to (read (POSIX file \"${img_path}\") as JPEG picture)"
+}
+
+
+## fzf config
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias docker-om='docker run -it --rm -v "$HOME:$HOME" -e "HOME=$HOME" -w "$PWD" -e "DISPLAY=`ifconfig | grep -o "inet [0-9.]*" | grep -Eo "[0-9.]{7,}" | grep -Fv 127.0.0.1 | head -1`:0" --user $UID openmodelica/openmodelica:v1.25.3-gui'

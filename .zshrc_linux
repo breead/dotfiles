@@ -1,0 +1,27 @@
+## general zsh stuff
+PS1="%2~ %# "
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+autoload -Uz compinit && compinit
+
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+alias ls='ls -G'
+alias ll='ls -l'
+alias la='ls -a'
+
+## fzf config
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+
+# Where history is stored
+export HISTFILE="$HOME/.zsh_history"
+
+# How many commands to keep in memory and on disk
+export HISTSIZE=50000
+export SAVEHIST=50000
+
+# Recommended history options
+setopt append_history          # don’t overwrite history file
+setopt hist_ignore_dups        # ignore duplicates
+setopt hist_ignore_space       # ignore commands starting with space
+setopt share_history           # share history between multiple shells
+setopt inc_append_history      # write each command immediately

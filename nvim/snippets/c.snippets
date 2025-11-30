@@ -1,0 +1,23 @@
+## Main
+# main
+snippet main
+	int main()
+	{
+		${0}
+	}
+## Preprocessor
+# #include <...>
+snippet inc
+	#include <${1:stdio}.h>
+## Input/Output
+# printf
+snippet pr
+	printf("${1:%s}\n"${2});
+snippet prd
+	printf("${1:} is: %d\n", $1);
+snippet prf
+	printf("${1:} is: %f\n", $1);
+snippet prx
+	printf("${1:} is: %${2}\n", $1);
+snippet pre
+	fprintf(stderr, "${1:} is : %${2}\n", $1);

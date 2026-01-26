@@ -1,4 +1,3 @@
-vim.opt.clipboard = "unnamedplus"
 vim.o.ic = true
 vim.o.confirm = true
 vim.o.splitbelow = true
@@ -15,3 +14,22 @@ vim.cmd [[
     "autocmd TermOpen * startinsert
   augroup END
 ]]
+
+-- Use OSC52 for all yank/copy operations
+if vim.env.SSH_CONNECTION or vim.env.SSH_TTY then
+	vim.g.clipboard = {
+	  name = 'OSC52',
+	  copy = {
+	    ['+'] = function(lines, _)
+	      require('vim.ui.clipboard.osc52').copy('+')(lines)
+	    end,
+	    ['*'] = function(lines, _)
+	      require('vim.ui.clipboard.osc52').copy('*')(lines)
+	    end,
+	  },
+	  paste = {
+	    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+	    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+	  },
+	}
+end

@@ -93,3 +93,5 @@ vim.filetype.add({
 -- vim.keymap.set("i", "<C-F>", "<C-x><C-F>", { noremap = true })
 -- vim.keymap.set("i", "<C-D>", "<C-x><C-D>", { noremap = true })
 -- vim.keymap.set("i", "<C-L>", "<C-x><C-L>", { noremap = true })
+
+vim.o.foldmethod = 'manual'

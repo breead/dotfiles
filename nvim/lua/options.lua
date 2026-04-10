@@ -77,9 +77,7 @@ vim.o.expandtab = true
 
 vim.o.relativenumber = true
 
--- vim.o.makeprg = 'clang % -Wall -Wextra -o %< 2>&1'
-
-vim.o.errorformat = "%f:%l:%c: %m,%f:%l: %m"
+-- Language-specific makeprg and errorformat settings are in ftplugin/
 
 -- Make line numbers default
 vim.o.number = true
@@ -95,3 +93,8 @@ vim.filetype.add({
 -- vim.keymap.set("i", "<C-L>", "<C-x><C-L>", { noremap = true })
 
 vim.o.foldmethod = 'manual'
+
+-- Try to get better :command completion
+vim.opt.wildoptions = { "pum", "tagfile", "fuzzy" }
+vim.o.wildmode = 'longest:full,full'
+

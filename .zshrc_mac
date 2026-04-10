@@ -7,12 +7,16 @@ PS1="%2~ %# "
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 autoload -Uz compinit && compinit
 
+export HISTSIZE=100000
+export SAVEHIST=100000
+setopt SHARE_HISTORY
+
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 alias ls='ls -G'
 alias ll='ls -l'
 alias la='ls -a'
 
-alias nvin="NVIM_APPNAME=nvim-nightly $HOME/opt/nvim-nightly/nvim-macos-arm64/bin/nvim"
+alias nvin="NVIM_APPNAME=nvim-nightly nvim"
 
 export MANPAGER="nvim -c 'Man!' -"
 

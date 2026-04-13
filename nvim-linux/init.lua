@@ -54,6 +54,12 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>e', function()
+  vim.diagnostic.open_float(0, { scope = 'line' })
+end, { desc = 'Diagnostic open float' })
+
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading plugins so that mappings are correct.
 vim.g.mapleader = " "
@@ -73,6 +79,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- require"vim._core.ui2".enable{}
 -- plugin list
 -- guess-indent.nvim
 -- gitsigns.nvim
@@ -102,6 +109,8 @@ vim.pack.add({
 	'https://github.com/NMAC427/guess-indent.nvim',
 	'https://github.com/L3MON4D3/LuaSnip',
 	'https://github.com/saghen/blink.cmp',
+	'https://github.com/saghen/blink.download',
+	{src = 'https://github.com/saghen/blink.pairs', version = 'v0.5.0'},
 	'https://github.com/mason-org/mason.nvim',
 	'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim',
 	'https://github.com/neovim/nvim-lspconfig',
@@ -265,6 +274,8 @@ end, { desc = '[S]earch [N]eovim files' })
 
 require('guess-indent').setup {}
 require("mason").setup()
+
+require('blink.pairs').setup {}
 
 require('blink.cmp').setup {
       completion = {

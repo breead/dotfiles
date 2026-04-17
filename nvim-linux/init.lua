@@ -112,6 +112,7 @@ vim.pack.add({
 	'https://github.com/saghen/blink.download',
 	{src = 'https://github.com/saghen/blink.pairs', version = 'v0.5.0'},
 	'https://github.com/mason-org/mason.nvim',
+	'https://github.com/mason-org/mason-lspconfig.nvim',
 	'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim',
 	'https://github.com/neovim/nvim-lspconfig',
 	'https://github.com/folke/tokyonight.nvim',
@@ -274,6 +275,7 @@ end, { desc = '[S]earch [N]eovim files' })
 
 require('guess-indent').setup {}
 require("mason").setup()
+require('mason-lspconfig').setup()
 
 require('blink.pairs').setup {}
 
@@ -303,3 +305,58 @@ require('blink.cmp').setup {
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
 }
+
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('minimal-lsp-attach', { clear = true }),
+	callback = function(event)
+		local map = function(keys, func, desc, mode)
+			mode = mode or 'n'
+			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+		end
+
+		map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+		map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+		map('grr', builtin.lsp_references, '[G]oto [R]eferences')
+		map('gri', builtin.lsp_implementations, '[G]oto [I]mplementation')
+		map('grd', builtin.lsp_definitions, '[G]oto [D]efinition')
+		map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+		map('grt', builtin.lsp_type_definitions, '[G]oto [T]ype Definition')
+		map('K', vim.lsp.buf.hover, 'Hover Documentation')
+	end,
+})
+
+vim.diagnostic.config {
+	severity_sort = true,
+	float = { border = 'rounded', source = 'if_many' },
+	underline = { severity = vim.diagnostic.severity.ERROR },
+	virtual_text = {
+		source = 'if_many',
+		spacing = 2,
+	},
+}
+
+local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+local servers = {
+	clangd = {},
+	basedpyright = {
+		settings = {
+			basedpyright = {
+				analysis = {
+					typeCheckingMode = 'basic',
+				},
+			},
+		},
+	},
+	-- lua_ls = {},
+}
+
+require('mason-tool-installer').setup {
+	ensure_installed = vim.tbl_keys(servers),
+}
+
+for server_name, server in pairs(servers) do
+	server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+	vim.lsp.config(server_name, server)
+	vim.lsp.enable(server_name)
+end

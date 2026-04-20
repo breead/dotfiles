@@ -17,7 +17,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ```
 
 ### rust
-[rust](https://rust-lang.org/tools/install/) install script
+[rust](https://rust-lang.org/tools/install/) install script, and then install tools:
 
 ```
 cargo install ripgrep

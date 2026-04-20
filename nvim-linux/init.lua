@@ -54,16 +54,16 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading plugins so that mappings are correct.
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<leader>e', function()
   vim.diagnostic.open_float(0, { scope = 'line' })
 end, { desc = 'Diagnostic open float' })
-
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading plugins so that mappings are correct.
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -344,11 +344,18 @@ local servers = {
 			basedpyright = {
 				analysis = {
 					typeCheckingMode = 'basic',
+					diagnosticSeverityOverrides = {
+						reportPrivateImportUsage = 'none',
+					},
 				},
 			},
+			-- python = {
+			-- 	pythonPath = vim.fn.getcwd() .. "/.venv/bin/python"
+			-- },
 		},
 	},
 	-- lua_ls = {},
+	-- zuban = {},
 }
 
 require('mason-tool-installer').setup {

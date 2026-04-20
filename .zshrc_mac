@@ -16,7 +16,7 @@ alias ls='ls -G'
 alias ll='ls -l'
 alias la='ls -a'
 
-alias nvin="NVIM_APPNAME=nvim-nightly nvim"
+alias nvin="NVIM_APPNAME=nvim-linux nvim"
 
 export MANPAGER="nvim -c 'Man!' -"
 
@@ -55,4 +55,3 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias docker-om='docker run -it --rm -v "$HOME:$HOME" -e "HOME=$HOME" -w "$PWD" -e "DISPLAY=`ifconfig | grep -o "inet [0-9.]*" | grep -Eo "[0-9.]{7,}" | grep -Fv 127.0.0.1 | head -1`:0" --user $UID openmodelica/openmodelica:v1.25.3-gui'
-

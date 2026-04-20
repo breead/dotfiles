@@ -9,6 +9,52 @@ vim.o.shiftwidth = 4
 
 vim.g.have_nerd_font = true
 
+-- Enable mouse mode, can be useful for resizing splits for example!
+vim.o.mouse = 'a'
+
+-- Enable break indent
+vim.o.breakindent = true
+
+-- Save undo history
+vim.o.undofile = true
+
+-- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+-- Keep signcolumn on by default
+vim.o.signcolumn = 'yes'
+
+-- Decrease update time
+vim.o.updatetime = 250
+
+-- Decrease mapped sequence wait time
+vim.o.timeoutlen = 300
+
+-- Sets how neovim will display certain whitespace characters in the editor.
+--  See `:help 'list'`
+--  and `:help 'listchars'`
+--
+--  Notice listchars is set using `vim.opt` instead of `vim.o`.
+--  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
+--   See `:help lua-options`
+--   and `:help lua-options-guide`
+vim.o.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- Preview substitutions live, as you type!
+vim.o.inccommand = 'split'
+
+-- Show which line your cursor is on
+vim.o.cursorline = true
+
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.o.scrolloff = 10
+
+-- Try to get better :command completion
+vim.opt.wildoptions = { "pum", "tagfile", "fuzzy" }
+vim.o.wildmode = 'longest:full,full'
+
 vim.cmd [[
   augroup TerminalSettings
     autocmd!
@@ -40,6 +86,16 @@ if vim.env.SSH_CONNECTION or vim.env.SSH_TTY then
 end
 
 -- !!!!end linux specific options!!!! --
+
+if vim.fn.has("macunix") == 1 then
+  vim.schedule(function()
+	vim.o.clipboard = 'unnamedplus'
+  end)
+
+  -- Fix macOS trackpad scrolling
+  vim.o.mousescroll = 'ver:1,hor:6'
+end
+
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`

@@ -170,8 +170,7 @@ vim.pack.add({
 	'https://github.com/NMAC427/guess-indent.nvim',
 	'https://github.com/L3MON4D3/LuaSnip',
 	'https://github.com/saghen/blink.cmp',
-	'https://github.com/saghen/blink.download',
-	{src = 'https://github.com/saghen/blink.pairs', version = 'v0.5.0'},
+	'https://github.com/windwp/nvim-autopairs',
 	'https://github.com/mason-org/mason.nvim',
 	'https://github.com/mason-org/mason-lspconfig.nvim',
 	'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -338,7 +337,7 @@ require('guess-indent').setup {}
 require("mason").setup()
 require('mason-lspconfig').setup()
 
-require('blink.pairs').setup {}
+require('nvim-autopairs').setup {}
 
 require('blink.cmp').setup {
       completion = {

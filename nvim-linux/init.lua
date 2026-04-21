@@ -4,8 +4,13 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.opt.scrolloff = 10
 vim.opt.number = true
+
+-- Indentation options. I want to switch some day to having actual tab
+-- characters that are just displayed as spaces in my editor, as I heard that
+-- causes fewer problems when collaborating on code.
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
+vim.o.expandtab = true
 
 vim.g.have_nerd_font = true
 

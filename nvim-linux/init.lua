@@ -169,6 +169,7 @@ vim.pack.add({
 	'https://github.com/nvim-telescope/telescope.nvim',
 	'https://github.com/NMAC427/guess-indent.nvim',
 	'https://github.com/L3MON4D3/LuaSnip',
+	'https://github.com/saghen/blink.lib',
 	'https://github.com/saghen/blink.cmp',
 	'https://github.com/windwp/nvim-autopairs',
 	'https://github.com/mason-org/mason.nvim',
@@ -338,6 +339,10 @@ require("mason").setup()
 require('mason-lspconfig').setup()
 
 require('nvim-autopairs').setup {}
+
+local cmp = require('blink.cmp')
+cmp.build():wait(60000)
+cmp.setup()
 
 require('blink.cmp').setup {
       completion = {

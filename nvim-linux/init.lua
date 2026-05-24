@@ -162,6 +162,7 @@ vim.pack.add({
 	'https://github.com/lewis6991/gitsigns.nvim',
 	'https://github.com/nvim-mini/mini.nvim',
 	'https://github.com/nvim-treesitter/nvim-treesitter',
+	'https://github.com/nvim-treesitter/nvim-treesitter-context',
 	'https://github.com/folke/which-key.nvim',
 	'https://github.com/nvim-lua/plenary.nvim',
 	'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
@@ -195,6 +196,8 @@ vim.cmd.colorscheme 'tokyonight-night'
 require('todo-comments').setup{
 	signs = false
 }
+
+require('treesitter-context').setup {}
 
 -- Better Around/Inside textobjects
 --
@@ -339,13 +342,20 @@ require("mason").setup()
 require('mason-lspconfig').setup()
 
 require('nvim-autopairs').setup {}
+require('luasnip.loaders.from_snipmate').lazy_load {
+  paths = { vim.fn.stdpath 'config' .. '/snippets' },
+}
 
+<<<<<<< HEAD
 local cmp = require('blink.cmp')
 cmp.build():wait(60000)
 cmp.setup()
 
 require('blink.cmp').setup {
       completion = {
+=======
+require('blink.cmp').setup {      completion = {
+>>>>>>> 1fa5de7 (Add treesitter context and fix something)
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
@@ -387,6 +397,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 		map('grt', builtin.lsp_type_definitions, '[G]oto [T]ype Definition')
 		map('K', vim.lsp.buf.hover, 'Hover Documentation')
+		map('<C-k>', vim.lsp.buf.signature_help, 'Signature Help', 'i')
+
 	end,
 })
 

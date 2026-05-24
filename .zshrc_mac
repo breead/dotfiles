@@ -16,7 +16,8 @@ alias ls='ls -G'
 alias ll='ls -l'
 alias la='ls -a'
 
-alias nvin="NVIM_APPNAME=nvim-linux nvim"
+alias nvin="nvim"
+alias nvim="NVIM_APPNAME=nvim-linux nvim"
 
 export MANPAGER="nvim -c 'Man!' -"
 

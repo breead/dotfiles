@@ -8,6 +8,11 @@ alias ls='ls -G'
 alias ll='ls -l'
 alias la='ls -a'
 
+export EDITOR=nvim
+
+## path
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
 ## fzf config
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh

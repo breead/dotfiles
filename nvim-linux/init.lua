@@ -346,16 +346,12 @@ require('luasnip.loaders.from_snipmate').lazy_load {
   paths = { vim.fn.stdpath 'config' .. '/snippets' },
 }
 
-<<<<<<< HEAD
 local cmp = require('blink.cmp')
 cmp.build():wait(60000)
 cmp.setup()
 
 require('blink.cmp').setup {
       completion = {
-=======
-require('blink.cmp').setup {      completion = {
->>>>>>> 1fa5de7 (Add treesitter context and fix something)
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
